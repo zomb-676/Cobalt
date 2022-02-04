@@ -1,0 +1,3 @@
+rootProject.name="Cobalt"
+include "cobalt-core"
+include "cobalt-graphic"

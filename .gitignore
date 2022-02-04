@@ -1,0 +1,6 @@
+.gradle
+build
+.idea
+out
+run
+hs_err_pid*.log

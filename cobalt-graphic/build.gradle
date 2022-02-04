@@ -1,0 +1,54 @@
+plugins{
+    id "java"
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+}
+
+repositories {
+    mavenCentral()
+}
+
+group = "zomb_676.cobalt.graphic"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+
+
+project.ext.lwjglVersion = "3.3.0"
+project.ext.lwjglNatives = getOS()
+
+static String getOS(){
+    String property = System.getProperty("os.name").toLowerCase()
+    if (property.contains("windows")){
+        return "natives-windows"
+    }
+    if (property.contains("linux")){
+        return "natives-linux"
+    }
+    if (property.contains("mac")){
+        return "natives-macos"
+    }
+    throw new RuntimeException("unknown os $property")
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.6.0'
+
+    //glfw
+    implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
+    implementation "org.lwjgl:lwjgl"
+    implementation "org.lwjgl:lwjgl-assimp" //3d model formats import
+    implementation "org.lwjgl:lwjgl-glfw"
+    implementation "org.lwjgl:lwjgl-openal"
+    implementation "org.lwjgl:lwjgl-opengl"
+    implementation "org.lwjgl:lwjgl-stb"
+    //necessary , otherwise , you can't find native .dll at runtime
+    runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
+    runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+    //imgui
+    implementation "io.github.spair:imgui-java-app:1.86.2"
+}
