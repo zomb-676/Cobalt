@@ -73,7 +73,7 @@ object DebugMessageType {
         ),
         MEDIUM(
             GL43.GL_DEBUG_SEVERITY_MEDIUM, "GL_DEBUG_SEVERITY_MEDIUM",
-            "Major performance warnings, shader compilation/linking warnings, or the use of deprecated functionality"
+            "Major performance warnings, shader compilation/linking warnings, or the bind of deprecated functionality"
         ),
         LOW(
             GL43.GL_DEBUG_SEVERITY_LOW, "GL_DEBUG_SEVERITY_LOW",

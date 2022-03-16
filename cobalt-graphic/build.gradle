@@ -12,11 +12,11 @@ group = "zomb_676.cobalt.graphic"
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 ext {
-    lwjglVersion = '3.3.0'
-    imguiVersion = '1.86.2'
+    lwjglVersion = '3.3.1'
+    imguiVersion = '1.86.3'
     lwjglVersion = "3.3.0"
     lwjglNatives = getOS()
-    jomlVersion = "1.10.3"
+    jomlVersion = "1.10.4"
     log4jVersion = "2.17.1"
 }
 

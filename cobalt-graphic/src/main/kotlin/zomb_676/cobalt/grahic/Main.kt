@@ -4,13 +4,9 @@ import org.lwjgl.glfw.GLFW
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11
 import org.lwjgl.opengl.GL43
-import org.lwjgl.opengl.GLDebugMessageCallback
-import org.lwjgl.system.MemoryStack
-import org.lwjgl.system.MemoryUtil
-import zomb_676.cobalt.grahic.Log.logger
-import java.io.File
-import java.nio.FloatBuffer
-import kotlin.math.log
+import zomb_676.cobalt.grahic.`object`.Program
+import zomb_676.cobalt.grahic.`object`.Shader
+import zomb_676.cobalt.grahic.`object`.ShaderType
 
 fun main() {
 
@@ -24,15 +20,17 @@ fun main() {
 
     Log.enableDebug()
 
-    val vao = GL43.glGenVertexArrays().run { GL43.glBindVertexArray(this) }
+    val vbo: Int = GL43.glGenBuffers().also { GL43.glBindBuffer(GL43.GL_ARRAY_BUFFER, it) }
+    GL43.glBindBuffer(GL43.GL_ARRAY_BUFFER,0)
+
+    val vao = GL43.glGenVertexArrays().also { GL43.glBindVertexArray(it) }
 
 //    val vertexBuilder = VertexBuilder(listOf(VertexFormat("pos",2),VertexFormat("color",3)))
 //    GL43.glGenVertexArrays().run { GL43.glBindVertexArray(this) }
 
-    val vbo: Int =GL43.glGenBuffers().also { GL43.glBindBuffer(GL43.GL_ARRAY_BUFFER, it) }
-    val vbo2: Int =GL43.glGenBuffers().also { GL43.glBindBuffer(GL43.GL_ARRAY_BUFFER, it) }
+//    val vbo2: Int =GL43.glGenBuffers().also { GL43.glBindBuffer(GL43.GL_ARRAY_BUFFER, it) }
 //
-//    val vbo = MemoryStack.stackPush().use {
+//    val vbo = MemoryStack.stackPush().bind {
 //        val point = it.mallocInt(1)
 //        GL43.glGenBuffers(point)
 //        val id = point.get(0)
@@ -46,27 +44,30 @@ fun main() {
 
     GL43.glEnableVertexAttribArray(0)
     GL43.glVertexAttribFormat(0,2,GL43.GL_FLOAT,true,0)
-    GL43.glVertexAttribBinding(0,1)
+    GL43.glVertexAttribBinding(0,0)
 
     GL43.glEnableVertexAttribArray(1)
     GL43.glVertexAttribFormat(1,3,GL43.GL_FLOAT,true,TypeSize.float * 2)
-    GL43.glVertexAttribBinding(1,2)
+    GL43.glVertexAttribBinding(1,0)
 
-    GL43.glBindVertexBuffer(1,vbo,0,TypeSize.float * 2)
-    GL43.glBindVertexBuffer(2,vbo2, (TypeSize.float * 2).toLong(),TypeSize.float * 3)
+    GL43.glBindVertexBuffer(0,vao,0,TypeSize.float * 5)
+
+    GL43.glBindBuffer(GL43.GL_ARRAY_BUFFER,vbo)
+
+//    GL43.glBindVertexBuffer(0,vbo, (TypeSize.float * 2).toLong(),TypeSize.float * 5)
 //    GL43.glBindVertexBuffer(1,vbo,0,TypeSize.float * 3)
 
-//    val data: FloatArray = floatArrayOf(
-//        0f, 0.5f, 1f, 0f, 0f,
-//        -0.5f, -0.5f, 0f, 1f, 0f,
-//        0.5f, -0.5f, 0f, 0f, 1f
-//    )
-    val data: FloatBuffer = MemoryUtil.memAllocFloat(15).apply {
-        put(0f).put(0.5f).put(1f).put(0f).put(0f)
-        put(-0.5f).put(-0.5f).put(0f).put(1f).put(0f)
-        put(0.5f).put(-0.5f).put(0f).put(0f).put(1f)
-        flip()
-    }
+    val data: FloatArray = floatArrayOf(
+        0f, 0.5f, 1f, 0f, 0f,
+        -0.5f, -0.5f, 0f, 1f, 0f,
+        0.5f, -0.5f, 0f, 0f, 1f
+    )
+//    val data: FloatBuffer = MemoryUtil.memAllocFloat(15).apply {
+//        put(0f).put(0.5f).put(1f).put(0f).put(0f)
+//        put(-0.5f).put(-0.5f).put(0f).put(1f).put(0f)
+//        put(0.5f).put(-0.5f).put(0f).put(0f).put(1f)
+//        flip()
+//    }
     GL43.glBufferData(GL43.GL_ARRAY_BUFFER, data, GL43.GL_STATIC_DRAW)
     val vsh = Shader.of(ShaderType.vertex, "pos.vsh")
 //    val vsh : Int = GL43.glCreateShader(GL43.GL_VERTEX_SHADER).also {
@@ -75,12 +76,12 @@ fun main() {
 //
 //    }
     val fsh = Shader.of(ShaderType.fragment, "pos.fsh")
-    val program = Program(vsh, fsh, "pos").link()
+    val program = Program(vsh, fsh, "pos").generate()
 
     while (!GLFW.glfwWindowShouldClose(window)) {
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT)
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT or GL11.GL_DEPTH_BUFFER_BIT)
 
-        program.use()
+        program.bind()
 //        vertexBuilder.begin()
 //        vertexBuilder.pos(0f,0.5f).color(1f,0f,0f)
 //            .pos(-0.5f,-0.5f).color(0f,1f,0f)

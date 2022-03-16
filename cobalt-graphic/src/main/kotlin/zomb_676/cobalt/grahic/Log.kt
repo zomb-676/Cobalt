@@ -10,13 +10,14 @@ import org.apache.logging.log4j.core.layout.PatternLayout
 import org.lwjgl.opengl.GL43
 import org.lwjgl.opengl.GLDebugMessageCallback
 import java.awt.event.ContainerAdapter
+import java.util.function.Supplier
 
-object Log{
+object Log {
     val logger = LogManager.getLogger("Cobalt")
 
     fun configureLogger() {
 
-        System.setProperty("log4j.skipJansi","false")//support colorful output
+        System.setProperty("log4j.skipJansi", "false")//support colorful output
 
         Configurator.setLevel(logger.name, Level.INFO)
         Configurator.reconfigure(object : DefaultConfiguration() {
@@ -32,13 +33,13 @@ object Log{
                     .build()
                 appender.start()
                 addAppender(appender)
-                rootLogger.addAppender(appender,Level.ALL,null)
+                rootLogger.addAppender(appender, Level.ALL, null)
                 rootLogger.level = Level.ALL
             }
         })
     }
 
-    fun enableDebug(){
+    fun enableDebug() {
         GL43.glEnable(GL43.GL_DEBUG_OUTPUT)
         GL43.glDebugMessageCallback(object : GLDebugMessageCallback() {
             override fun invoke(
@@ -48,7 +49,7 @@ object Log{
                 severity: Int,
                 length: Int,
                 message: Long,
-                userParam: Long
+                userParam: Long,
             ) {
                 val messageSource = DebugMessageType.MessageSource.getDescriptionByValue(source)
                 val messageType = DebugMessageType.MessageType.getDescriptionByValue(type)
@@ -56,15 +57,15 @@ object Log{
                 val mess = getMessage(length, message)
                 val sb = StringBuilder()
                 sb.append("gl debug message called").append("\n")
-                sb.append("source:${messageSource.name},detail:${messageSource.description}").append("\n")
-                sb.append("type:${messageType.enumName},detail:${messageType.description}").append("\n")
-                sb.append("severity:${messageSeverity.name},detail:${messageSeverity.description}").append("\n")
-                sb.append("message:$mess")
-                when(messageSeverity){
+                sb.append("source:\t${messageSource.name},detail:${messageSource.description}").append("\n")
+                sb.append("type:\t${messageType.enumName},detail:${messageType.description}").append("\n")
+                sb.append("severity:\t${messageSeverity.name},detail:${messageSeverity.description}").append("\n")
+                sb.append("message:\t$mess")
+                when (messageSeverity) {
                     DebugMessageType.MessageSeverity.HIGH -> logger.fatal(sb)
                     DebugMessageType.MessageSeverity.MEDIUM -> logger.error(sb)
                     DebugMessageType.MessageSeverity.LOW -> logger.info(sb)
-                    DebugMessageType.MessageSeverity.NOTIFICATION -> logger.debug(sb)
+                    DebugMessageType.MessageSeverity.NOTIFICATION -> logger.trace(sb)
                 }
             }
 

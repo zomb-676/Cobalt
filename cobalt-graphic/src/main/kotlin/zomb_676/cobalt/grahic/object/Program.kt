@@ -1,23 +1,28 @@
-package zomb_676.cobalt.grahic
+package zomb_676.cobalt.grahic.`object`
 
 import org.lwjgl.opengl.GL43
 import zomb_676.cobalt.grahic.Log.logger
+import zomb_676.cobalt.grahic.StateRecorder
 import kotlin.system.measureTimeMillis
 
-class Program(val vertexShaderType: Shader, val fragmentShader: Shader, val programName: String = "no_name") {
+class Program(
+    private val vertexShaderType: Shader,
+    private val fragmentShader: Shader,
+    private val programName: String = "no_name"
+) {
     var id: Int = -1
 
     fun isValid(): Boolean = id != -1
 
-    fun link(): Program {
+    fun generate(): Program {
         if (isValid()) {
             return this
         }
         val linkCostTime = measureTimeMillis {
             id = GL43.glCreateProgram()
-            vertexShaderType.compile()
+            vertexShaderType.generate()
             vertexShaderType.attach(this)
-            fragmentShader.compile()
+            fragmentShader.generate()
             fragmentShader.attach(this)
         }
         GL43.glLinkProgram(id)
@@ -31,13 +36,22 @@ class Program(val vertexShaderType: Shader, val fragmentShader: Shader, val prog
     }
 
     @Throws(RuntimeException::class)
-    fun use() {
+    fun bind(): Program {
         if (isValid()) {
-            GL43.glUseProgram(id)
+            StateRecorder.tryBindProgram(this){
+                GL43.glUseProgram(id)
+            }
         } else {
-            throw RuntimeException("can't use un-init $this")
+            throw RuntimeException("can't bind un-init $this")
         }
+        return this
     }
+
+    fun unbind() {
+        GL43.glUseProgram(0)
+        StateRecorder.lastProgram = 0
+    }
+
 
     override fun toString(): String = "{program:$programName id:$id with $vertexShaderType and $fragmentShader}"
 }

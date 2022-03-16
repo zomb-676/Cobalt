@@ -1,7 +1,7 @@
 package zomb_676.cobalt.grahic
 
 @JvmInline
-value class TypeSize<T : Number> private constructor(val byteSize: Int) {
+value class TypeSize<T : Number> private constructor(private val byteSize: Int) {
     companion object {
         val int = TypeSize<Int>(Int.SIZE_BYTES)
         val float = TypeSize<Float>(Float.SIZE_BYTES)

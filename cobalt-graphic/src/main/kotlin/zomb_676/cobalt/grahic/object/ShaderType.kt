@@ -1,9 +1,10 @@
-package zomb_676.cobalt.grahic
+package zomb_676.cobalt.grahic.`object`
 
 import org.lwjgl.opengl.GL43
 
 @JvmInline
 value class ShaderType private constructor(val shaderType: Int) {
+    @Suppress("MemberVisibilityCanBePrivate")
     companion object {
         val vertex = ShaderType(GL43.GL_VERTEX_SHADER)
         val tessellationControl = ShaderType(GL43.GL_TESS_CONTROL_SHADER)
