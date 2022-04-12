@@ -1,6 +1,15 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${ktVersion}"
+    }
+}
 plugins{
     id "java"
-    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'org.jetbrains.kotlin.jvm' version "${ktVersion}"
 }
 
 repositories {
@@ -11,32 +20,9 @@ group = "zomb_676.cobalt.graphic"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-ext {
-    lwjglVersion = '3.3.1'
-    imguiVersion = '1.86.3'
-    lwjglVersion = "3.3.0"
-    lwjglNatives = getOS()
-    jomlVersion = "1.10.4"
-    log4jVersion = "2.17.1"
-}
-
-static String getOS(){
-    String property = System.getProperty("os.name").toLowerCase()
-    if (property.contains("windows")){
-        return "natives-windows"
-    }
-    if (property.contains("linux")){
-        return "natives-linux"
-    }
-    if (property.contains("mac")){
-        return "natives-macos"
-    }
-    throw new RuntimeException("unknown os $property")
-}
-
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.6.0'
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.6.1'
 
     //glfw
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")

@@ -68,7 +68,6 @@ class TextureInfoBuilder {
             val y = this.mallocInt(1)
             val channel = this.mallocInt(1)
             STBImage.stbi_info_from_memory(data,x,y,channel)
-            STBImage.stbi_load()
         }
     }
 
