@@ -1,10 +1,10 @@
 allprojects {
     ext {
         lwjglVersion = '3.3.1'
-        imguiVersion = '1.86.3'
+        imguiVersion = '1.86.4'
         lwjglNatives = getOS()
         jomlVersion = "1.10.4"
-        log4jVersion = "2.17.1"
+        log4jVersion = "2.17.2"
         ktVersion = "1.6.20"
         mixingradle_version = "0.7-SNAPSHOT"
     }

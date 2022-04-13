@@ -7,6 +7,7 @@ import org.apache.logging.log4j.core.appender.ConsoleAppender
 import org.apache.logging.log4j.core.config.Configurator
 import org.apache.logging.log4j.core.config.DefaultConfiguration
 import org.apache.logging.log4j.core.layout.PatternLayout
+import org.lwjgl.glfw.GLFW
 import org.lwjgl.opengl.GL43
 import org.lwjgl.opengl.GLDebugMessageCallback
 import java.awt.event.ContainerAdapter
@@ -55,12 +56,16 @@ object Log {
                 val messageType = DebugMessageType.MessageType.getDescriptionByValue(type)
                 val messageSeverity = DebugMessageType.MessageSeverity.getDescriptionByValue(severity)
                 val mess = getMessage(length, message)
-                val sb = StringBuilder()
-                sb.append("gl debug message called").append("\n")
-                sb.append("source:\t${messageSource.name},detail:${messageSource.description}").append("\n")
-                sb.append("type:\t${messageType.enumName},detail:${messageType.description}").append("\n")
-                sb.append("severity:\t${messageSeverity.name},detail:${messageSeverity.description}").append("\n")
-                sb.append("message:\t$mess")
+//                val sb = StringBuilder()
+//                sb.append("gl debug message called").append("\n")
+//                sb.append("source:\t${messageSource.name},detail:${messageSource.description}").append("\n")
+//                sb.append("type:\t${messageType.enumName},detail:${messageType.description}").append("\n")
+//                sb.append("severity:\t${messageSeverity.name},detail:${messageSeverity.description}").append("\n")
+//                sb.append("message:\t$mess")
+                var sb = "openGL Error:${mess},level:${messageSeverity.name},source:${messageSource.name},type:${messageType.enumName}"
+                sb = sb.replace(".","")
+                    .replace("error generated","")
+                    .replace("  "," ")
                 when (messageSeverity) {
                     DebugMessageType.MessageSeverity.HIGH -> logger.fatal(sb)
                     DebugMessageType.MessageSeverity.MEDIUM -> logger.error(sb)

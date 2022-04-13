@@ -40,6 +40,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'cobalt'
             arg '-mixin.config=cobalt.mixins.json'
+            arg '-mixin.debug.export=true'
             mods {
                 cobalt {
                     source sourceSets.main
@@ -112,8 +113,8 @@ minecraft.runs.all {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.0.45'
-    implementation project(":cobalt-graphic")
     groovy.lang.Closure exclude_annotations = { exclude group: 'org.jetbrains', module: 'annotations' }
+    library project(":cobalt-graphic" ) , exclude_annotations
     library group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: "1.6.20", exclude_annotations
 
 }

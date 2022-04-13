@@ -1,10 +1,19 @@
 {
-  "required":  true,
+  "required": true,
   "minVersion": "0.8",
   "package": "com.github.zomb_676.cobalt.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "cobalt.refmap.json",
-  "mixins": ["TryMix"],
+  "mixins": [
+    "TryMix",
+    "MixinRenderSystem",
+    "MixinBufferUploader",
+    "track.MixinTexture",
+    "track.buffer.MixinVertexFormat",
+    "track.buffer.MixinVertexBufferForBuffer",
+    "track.buffer.MixinVertexFormat",
+    "track.MixinGlStateManagerForVertexArray"
+  ],
   "injectors": {
     "defaultRequire": 1
   },
