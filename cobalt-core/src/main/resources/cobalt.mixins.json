@@ -4,15 +4,16 @@
   "package": "com.github.zomb_676.cobalt.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "cobalt.refmap.json",
-  "mixins": [
-    "TryMix",
-    "MixinRenderSystem",
+  "client": [
     "MixinBufferUploader",
+    "MixinRenderSystem",
+    "MixinRenderLevel",
+    "expose.AccessRenderSystem",
+    "track.MixinGlStateManagerForVertexArray",
     "track.MixinTexture",
-    "track.buffer.MixinVertexFormat",
     "track.buffer.MixinVertexBufferForBuffer",
     "track.buffer.MixinVertexFormat",
-    "track.MixinGlStateManagerForVertexArray"
+    "example.textureOverlay.MixinTNTMinecartRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
