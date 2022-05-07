@@ -29,7 +29,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
 //    mappings channel: 'official', version: '1.18.1'
-    mappings channel: 'parchment', version: '2022.03.13-1.18.2'
+    mappings channel: 'parchment', version: '2022.05.02-1.18.2'
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg') // Currently, this location cannot be changed from the default.
 
@@ -112,7 +112,7 @@ minecraft.runs.all {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.45'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.16'
     groovy.lang.Closure exclude_annotations = { exclude group: 'org.jetbrains', module: 'annotations' }
     library project(":cobalt-graphic" ) , exclude_annotations
     library group: 'org.jetbrains.kotlin', name: 'kotlin-stdlib', version: "1.6.20", exclude_annotations

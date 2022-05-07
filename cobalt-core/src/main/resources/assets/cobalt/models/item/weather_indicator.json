@@ -1,0 +1,66 @@
+{
+	"parent": "cobalt:item/weather_indicator_empty",
+	"gui_light": "side",
+	"display": {
+		"thirdperson_righthand": {
+			"rotation": [30, 0, 0],
+			"translation": [0.5, 5.75, 2]
+		},
+		"thirdperson_lefthand": {
+			"rotation": [30, 0, 0],
+			"translation": [0.5, 5.75, 2]
+		},
+		"firstperson_righthand": {
+			"rotation": [-5, -4, 0],
+			"translation": [0, 4.75, 0]
+		},
+		"firstperson_lefthand": {
+			"rotation": [-5, -4, 0],
+			"translation": [0, 4.75, 0]
+		},
+		"ground": {
+			"translation": [0, 4.25, 0]
+		},
+		"gui": {
+			"translation": [0, 2.5, 0]
+		},
+		"fixed": {
+			"rotation": [-180, 0, -180],
+			"translation": [0, 2.25, 0]
+		}
+	},
+	"groups": [0, 1,
+		{
+			"name": "frame",
+			"origin": [22, -1, 7.5],
+			"color": 0,
+			"children": [2, 3, 4, 5]
+		}
+	],
+	"overrides": [
+		{
+			"predicate": {
+				"cobalt:weather": 0
+			},
+			"model": "cobalt:item/weather_indicator_empty"
+		},
+		{
+			"predicate": {
+				"cobalt:weather": 1
+			},
+			"model": "cobalt:item/weather_indicator_cloud"
+		},
+		{
+			"predicate": {
+				"cobalt:weather": 2
+			},
+			"model": "cobalt:item/weather_indicator_sun"
+		},
+		{
+			"predicate": {
+				"cobalt:weather": 3
+			},
+			"model": "cobalt:item/weather_indicator_moon"
+		}
+	]
+}

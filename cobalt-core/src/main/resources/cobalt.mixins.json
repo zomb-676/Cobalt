@@ -9,11 +9,12 @@
     "MixinRenderSystem",
     "MixinRenderLevel",
     "expose.AccessRenderSystem",
-    "track.MixinGlStateManagerForVertexArray",
-    "track.MixinTexture",
-    "track.buffer.MixinVertexBufferForBuffer",
-    "track.buffer.MixinVertexFormat",
-    "example.textureOverlay.MixinTNTMinecartRenderer"
+    "trackResource.MixinGlStateManagerForVertexArray",
+    "trackResource.MixinTexture",
+    "trackResource.buffer.MixinVertexBufferForBuffer",
+    "trackResource.buffer.MixinVertexFormat",
+    "example.textureOverlay.MixinTNTMinecartRenderer",
+    "example.shader.MixinGameRender"
   ],
   "injectors": {
     "defaultRequire": 1
