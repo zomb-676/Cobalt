@@ -1,9 +1,10 @@
 package com.github.zomb_676.cobalt.window
 
+import com.github.zomb_676.cobalt.mixin.expose.AccessRenderSystem
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class ResourceMonitor() {
+class ResourceMonitor {
 
     companion object {
 
@@ -14,33 +15,34 @@ class ResourceMonitor() {
         val unknown = ResourceMonitor()
 
         @Throws(RuntimeException::class)
-        fun switchMonitor() = unknown
-//            when (Thread.currentThread()) {
-//                MixinRenderSystem.renderThread, MixinRenderSystem.gameThread -> mc
-//                ModEventHandle.thread -> mod
-//                else -> throw RuntimeException("error thread called,name:${Thread.currentThread().name}")
-//            }
+        fun switchMonitor() =
+//            unknown
+            when (Thread.currentThread()) {
+                AccessRenderSystem.getRenderThread(), AccessRenderSystem.getGameThread() -> mc
+                ModEventHandle.thread -> mod
+                else -> throw RuntimeException("error thread called,name:${Thread.currentThread().name}")
+            }
 
-        fun autoSwitch(id:Int)= switchMonitor().auto(id)
+        fun autoSwitch(id: Int) = switchMonitor().auto(id)
     }
 
-    fun auto(id: Int):ResourceWrapper =
-        if (ResourceWrapper.textureCheck(id)){
+    fun auto(id: Int): ResourceWrapper =
+        if (ResourceWrapper.textureCheck(id)) {
             textures
-        }else if (ResourceWrapper.vertexArrayCheck(id)){
+        } else if (ResourceWrapper.vertexArrayCheck(id)) {
             vertexArray
-        }else if (ResourceWrapper.programCheck(id)){
+        } else if (ResourceWrapper.programCheck(id)) {
             program
-        }else if (ResourceWrapper.frameBufferCheck(id)){
+        } else if (ResourceWrapper.frameBufferCheck(id)) {
             frameBuffer
-        }else{
+        } else {
             throw UnsupportedOperationException()
         }
 
-    val textures = ResourceWrapper("texture",ResourceWrapper.textureCheck)
-    val buffer = ResourceWrapper("dataBuffer",ResourceWrapper.bufferCheck)
-    val indexBuffer = ResourceWrapper("indexBuffer",ResourceWrapper.bufferCheck)
-    val vertexArray = ResourceWrapper("vertexArray",ResourceWrapper.vertexArrayCheck)
-    val program = ResourceWrapper("program",ResourceWrapper.programCheck)
-    val frameBuffer = ResourceWrapper("frameBuffer",ResourceWrapper.frameBufferCheck)
+    val textures = ResourceWrapper("texture", ResourceWrapper.textureCheck)
+    val buffer = ResourceWrapper("dataBuffer", ResourceWrapper.bufferCheck)
+    val indexBuffer = ResourceWrapper("indexBuffer", ResourceWrapper.bufferCheck)
+    val vertexArray = ResourceWrapper("vertexArray", ResourceWrapper.vertexArrayCheck)
+    val program = ResourceWrapper("program", ResourceWrapper.programCheck)
+    val frameBuffer = ResourceWrapper("frameBuffer", ResourceWrapper.frameBufferCheck)
 }

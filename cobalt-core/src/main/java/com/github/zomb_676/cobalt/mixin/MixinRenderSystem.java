@@ -7,10 +7,7 @@ import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.AbstractTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -25,12 +22,6 @@ public abstract class MixinRenderSystem {
     private static final float[] shaderColor = new float[]{1.0F, 1.0F, 1.0F, 1.0F};
 
     private static ShaderInstance IShader;
-
-    @Shadow
-    public static Thread renderThread;
-
-    @Shadow
-    public static Thread gameThread;
 
     @Inject(method = "isOnRenderThread", at = @At("HEAD"), cancellable = true)
     private static void mixinIsOnRenderThread(CallbackInfoReturnable<Boolean> cir) {

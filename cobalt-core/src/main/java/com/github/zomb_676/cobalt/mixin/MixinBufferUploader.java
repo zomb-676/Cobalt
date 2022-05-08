@@ -3,21 +3,14 @@ package com.github.zomb_676.cobalt.mixin;
 import com.github.zomb_676.cobalt.window.ModEventHandle;
 import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import org.jetbrains.annotations.Contract;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(value = BufferUploader.class, remap = false)
 public abstract class MixinBufferUploader {
-    private static int ILastVertexArrayObject;
-    private static int ILastVertexBufferObject;
-    private static int ILastIndexBufferObject;
-    private static VertexFormat ILastVertexFormat;
-
     @Shadow
     static int lastVertexArrayObject;
     @Shadow
@@ -26,7 +19,10 @@ public abstract class MixinBufferUploader {
     static int lastIndexBufferObject;
     @Shadow
     static VertexFormat lastFormat;
-
+    private static int ILastVertexArrayObject;
+    private static int ILastVertexBufferObject;
+    private static int ILastIndexBufferObject;
+    private static VertexFormat ILastVertexFormat;
 
     @Redirect(
             method = "*",
@@ -39,7 +35,7 @@ public abstract class MixinBufferUploader {
         if (Thread.currentThread() == ModEventHandle.getThread()) {
             ILastVertexArrayObject = value;
         } else {
-            lastVertexArrayObject=value;
+            lastVertexArrayObject = value;
         }
     }
 
@@ -129,7 +125,7 @@ public abstract class MixinBufferUploader {
         if (Thread.currentThread() == ModEventHandle.getThread()) {
             ILastVertexFormat = vertexFormat;
         } else {
-            lastFormat=vertexFormat;
+            lastFormat = vertexFormat;
         }
     }
 

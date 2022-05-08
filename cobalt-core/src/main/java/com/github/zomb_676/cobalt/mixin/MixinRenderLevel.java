@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelRenderer.class)
-public class TryMix {
+public class MixinRenderLevel {
     @Inject(method = "renderLevel", at = @At("HEAD"))
     public void render(PoseStack stack, float pPartialTick, long pFinishNanoTime, boolean pRenderBlockOutline,
                        Camera camera, GameRenderer gameRenderer, LightTexture lightTexture

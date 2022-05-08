@@ -1,16 +1,15 @@
-package com.github.zomb_676.cobalt.mixin.track.buffer;
+package com.github.zomb_676.cobalt.mixin.trackResource.buffer;
 
 
 import com.github.zomb_676.cobalt.window.ResourceMonitor;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = VertexFormat.class,remap = false)
+@Mixin(value = VertexFormat.class, remap = false)
 abstract class MixinVertexFormat {
     @Shadow
     int indexBufferObject;
@@ -26,8 +25,8 @@ abstract class MixinVertexFormat {
                     opcode = Opcodes.PUTFIELD
             )
     )
-    private static void setVerBufferObjectId(VertexFormat instance, int value){
-        ((MixinVertexFormat)(Object)(instance)).vertexBufferObject = value;
+    private void setVerBufferObjectId(VertexFormat instance, int value) {
+        ((MixinVertexFormat) (Object) (instance)).vertexBufferObject = value;
         ResourceMonitor.Companion.switchMonitor().getBuffer().add(value);
     }
 
@@ -40,8 +39,8 @@ abstract class MixinVertexFormat {
                     opcode = Opcodes.PUTFIELD
             )
     )
-    private static void setIndexBufferObjectId(VertexFormat instance, int value){
-        ((MixinVertexFormat)(Object)(instance)).indexBufferObject = value;
+    private void setIndexBufferObjectId(VertexFormat instance, int value) {
+        ((MixinVertexFormat) (Object) (instance)).indexBufferObject = value;
         ResourceMonitor.Companion.switchMonitor().getIndexBuffer().add(value);
     }
 

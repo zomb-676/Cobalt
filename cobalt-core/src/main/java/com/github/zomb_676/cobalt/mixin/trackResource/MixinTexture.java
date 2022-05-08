@@ -1,8 +1,7 @@
-package com.github.zomb_676.cobalt.mixin.track;
+package com.github.zomb_676.cobalt.mixin.trackResource;
 
 import com.github.zomb_676.cobalt.window.ResourceMonitor;
 import com.mojang.blaze3d.platform.TextureUtil;
-import org.checkerframework.checker.units.qual.A;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,9 +16,8 @@ public class MixinTexture {
         ResourceMonitor.Companion.switchMonitor().getTextures().add(id);
     }
 
-    @Inject(method = "releaseTextureId",at = @At("HEAD"))
-    private static void getReleaseTextureID(int pTextureId, CallbackInfo ci)
-    {
+    @Inject(method = "releaseTextureId", at = @At("HEAD"))
+    private static void getReleaseTextureID(int pTextureId, CallbackInfo ci) {
         ResourceMonitor.Companion.switchMonitor().getTextures().remove(pTextureId);
     }
 

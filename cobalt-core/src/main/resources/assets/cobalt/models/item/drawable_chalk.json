@@ -1,0 +1,4 @@
+{
+	"loader": "cobalt:override_loader",
+	"parent": "item/diamond"
+}

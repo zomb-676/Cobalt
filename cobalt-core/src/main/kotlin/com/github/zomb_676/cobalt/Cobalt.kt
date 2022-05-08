@@ -2,6 +2,7 @@ package com.github.zomb_676.cobalt
 
 import com.github.zomb_676.cobalt.example.itemModel.Chalk
 import com.github.zomb_676.cobalt.example.itemModel.ColorfulChalk
+import com.github.zomb_676.cobalt.example.itemModel.OverrideModelLoader
 import com.github.zomb_676.cobalt.example.itemModel.WeatherIndicator
 import net.minecraft.client.Minecraft
 import net.minecraftforge.common.MinecraftForge
@@ -20,6 +21,7 @@ class Cobalt {
         modEventBus.addListener(Chalk::registerColorHandle)
         modEventBus.addListener(ColorfulChalk::registerColorHandle)
         modEventBus.addListener(WeatherIndicator::setItemOverride)
+        modEventBus.addListener(OverrideModelLoader::registerModelLoader)
         forgeBuf.addListener(ColorfulChalk::registerCommand)
     }
 

@@ -31,5 +31,7 @@ object AllRegisters {
 
     val colorfulChalk = ITEM.register("colorful_chalk") { ColorfulChalk.ColorfulChalk() }
 
+    val drawableChalk = ITEM.register("drawable_chalk"){Item(Item.Properties().tab(creativeTab))}
+
     val whetherIndicator = ITEM.register("weather_indicator"){WeatherIndicator()}
 }

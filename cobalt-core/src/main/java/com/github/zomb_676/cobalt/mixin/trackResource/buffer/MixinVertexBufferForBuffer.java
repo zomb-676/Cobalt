@@ -1,4 +1,4 @@
-package com.github.zomb_676.cobalt.mixin.track.buffer;
+package com.github.zomb_676.cobalt.mixin.trackResource.buffer;
 
 import com.github.zomb_676.cobalt.window.ResourceMonitor;
 import com.mojang.blaze3d.vertex.VertexBuffer;
@@ -23,7 +23,7 @@ abstract class MixinVertexBufferForBuffer {
                     opcode = Opcodes.PUTFIELD
             )
     )
-    private static void retrieveVertexBufferId(VertexBuffer instance, int value) {
+    private void retrieveVertexBufferId(VertexBuffer instance, int value) {
         ((MixinVertexBufferForBuffer) (Object) instance).vertextBufferId = value;
         ResourceMonitor.Companion.switchMonitor().getBuffer().add(value);
     }
@@ -37,8 +37,8 @@ abstract class MixinVertexBufferForBuffer {
                     opcode = Opcodes.PUTFIELD
             )
     )
-    private static void resetIndexBuffer(VertexBuffer instance, int value) {
-        ((MixinVertexBufferForBuffer)(Object)instance).indexBufferId = -1;
+    private void resetIndexBuffer(VertexBuffer instance, int value) {
+        ((MixinVertexBufferForBuffer) (Object) instance).indexBufferId = -1;
         ResourceMonitor.Companion.switchMonitor().getIndexBuffer().remove(value);
     }
 
@@ -51,8 +51,8 @@ abstract class MixinVertexBufferForBuffer {
                     opcode = Opcodes.PUTFIELD
             )
     )
-    private static void resetVertexBuffer(VertexBuffer instance, int value) {
-        ((MixinVertexBufferForBuffer)(Object)instance).indexBufferId = -1;
+    private void resetVertexBuffer(VertexBuffer instance, int value) {
+        ((MixinVertexBufferForBuffer) (Object) instance).indexBufferId = -1;
         ResourceMonitor.Companion.switchMonitor().getBuffer().remove(value);
     }
 
